@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/', /*async*/ (req, res) => {
     try {
-        res.send(" root shomeaa port 3008 ")
+      // await 
+       res.send(" root shomeaa port 3008 ")
         console.log("ok");
     } catch (error) {
         res.send(error.message)
