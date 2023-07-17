@@ -1,16 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const conectDB = require('./DL/database')
 
+const conectDB = require('./DL/database')
+conectDB.conectDB()
 
 app.use(express.json());
 app.use(cors());
 
-const testRoute = require('./router/test.router')
-app.use('/all', testRoute)
 
-conectDB.conectDB()
+
+
+const testRoute = require('./router/test.router')
+app.use("/all", testRoute)
 
 
 
