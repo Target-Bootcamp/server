@@ -2,21 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const conectDB = require('./DL/database')
-const mainRouter = require('./router/main.router')
+
 
 app.use(express.json());
 app.use(cors());
 
-mainRouter(app)
-
+const testRoute = require('./router/test.router')
+app.use('/all', testRoute)
 
 conectDB.conectDB()
-
-
-
-
-
-
 
 
 
