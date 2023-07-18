@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+require('./users.model')
 
 const actionsSchema = new mongoose.Schema(
 
