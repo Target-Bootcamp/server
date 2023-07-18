@@ -11,8 +11,7 @@ const maineRouter = require('./router/main.router')
 maineRouter(app)
 
 
-const testRoute = require('./router/test.router')
-app.use("/", testRoute)
+
 
 
 
