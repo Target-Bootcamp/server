@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 
 const usersSchema = new mongoose.Schema(
     {
-      userId: {type:Number, required:true,minLength:3},
-      fName: {type:String, required:true,minLength:2},
-      lName: {type:String, required:true,minLength:2},
-      phone: {type:Number, required:true,minLength:9},
-      email: {type:String, required:true,minLength:9},
-      participantNum:{type:Number, required:true,minLength:3},
+      userId: {type:Number, required:true},
+      fName: {type:String, required:true},
+      lName: {type:String, required:true,},
+      phone: {type:Number, required:true},
+      email: {type:String, required:true},
+      participantNum:{type:Number, required:true},
       comments: {type:String},
       permission: {type:String, required:true}
     }
