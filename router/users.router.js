@@ -8,7 +8,7 @@ router.post('/',async(req, res)=>{
         let data = await create(req.body)
         res.send(data)
     } catch (error) {
-        // console.log(error);
+         console.log(error);
         res.status(400).send(error)
     }
 })

@@ -12,7 +12,7 @@ maineRouter(app)
 
 
 const testRoute = require('./router/test.router')
-app.use("/all", testRoute)
+app.use("/", testRoute)
 
 
 
