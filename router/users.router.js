@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const {create,create2,read} = require('../DL/controllers/users.controler')
 
-router.post('/create',async(req, res)=>{
+router.post('/',async(req, res)=>{
     try {
         console.log(req.body);
         let data = await create(req.body)
