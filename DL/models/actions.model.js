@@ -1,118 +1,98 @@
 const mongoose = require('mongoose');
-
+require('./users.model')
 
 const actionsSchema = new mongoose.Schema(
 
     {
         orderSource: {
-            type: String,
-            required: true
+            type: String
         },
         fundingSource: {
             type: String,
-            required: true
         },
         location: {
             type: String,
-            required: true
         },
         locationType: {
             type: Number,
-            required: true
         },
-        days: {
-            type: [Number],
-            required: true
-        },
+        days: [Number],
         startTime: {
             type: String,
-            required: true
         },
         endTime: {
             type: String,
-            required: true
         },
         startDate: {
             type: Date,
-            required: true
         },
         endDate: {
             type: Date,
-            required: true
         },
         status: {
-            type: Number,
-            required: true
+            type: String,
+            // enum : [""]
         },
         lecturer: {
-            type: String,
-            required: true
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: "users"
         },
         actionType: {
-            type: String,
-            required: true
+            type: String
         },
         name: {
-            type: String,
-            required: true
+            type: String
         },
         files: [
             {
                 fileName: {
-                    type: String,
-                    required: true
+                    type: String
                 },
                 fileType: {
                     type: String,
-                    required: true
                 },
                 size: {
-                    type: String,
-                    required: true
+                    type: Number
                 },
                 createdDate: {
                     type: Date,
-                    required: true
+                    default: Date.now
                 }
             }
         ],
         tasks: [
             {
                 deadline: {
-                    type: Date,
-                    required: true
-                },
+                    type: Date
+                                },
                 details: {
                     type: String,
-                    required: true
                 },
                 isDone: {
                     type: Boolean,
-                    required: true
+                    default: false
                 }
             }
         ],
         users: [{
             type: mongoose.SchemaTypes.ObjectId,
-            ref: 'user',
+            ref: 'users',
         }],
         schedules: [
             {
                 date: {
                     type: Date,
-                    required: true
                 },
                 lecturer: {
-                    type: String,
-                    required: true
+                    type: mongoose.SchemaTypes.ObjectId,
+                    ref: 'users',
                 },
                 comments: {
                     type: String,
-                    required: true
                 },
                 status: {
                     type: String,
-                    required: true
+                    // enum:[""]
                 }
             }
         ]
