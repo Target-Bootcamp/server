@@ -8,4 +8,4 @@ const del = async (filterBy) => await actionsModel.findByIdAndUpdate(filterBy, {
 const update = async (infoUpdate) => await actionsModel.findByIdAndUpdate({ _id: infoUpdate._id }, infoUpdate.updateaction)
 
 
-module.exports = {read, create,  del, update }
+module.exports = { read, create, del, update }
