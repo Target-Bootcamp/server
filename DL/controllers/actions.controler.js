@@ -9,7 +9,7 @@ const create = async (newData) => {
     let data = await actionsModel.create(newData)
     return data
 }
-const deletOne = async (id) => {
+const deleteOne = async (id) => {
     let data = await actionsModel.findByIdAndRemove(id)
     return data
 }
@@ -35,4 +35,4 @@ const update = async (id,newData) => {
 }
 
 
-module.exports = { read, create, update, updateNested ,deletOne}
+module.exports = { read, create, update, updateNested ,deleteOne}

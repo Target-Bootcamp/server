@@ -1,23 +1,25 @@
 const usersModel = require('../models/users.model');
 
 
-const readone = async (filterBy) => await usersModel.findOne(filterBy)
+
+
+const read = async (filterBy) => {
+    let data = await usersModel.find(filterBy)
+    return data
+}
+
 const create = async (newData) => {
    let data = await usersModel.create(newData)
-//    console.log(data);
    return data
 }
-const Delete = async (filterBy) => await usersModel.findByIdAndUpdate(filterBy, {IS: "? no active"})
-const update = async (infoUpdate) => await usersModel.findByIdAndUpdate({ _id: infoUpdate._id }, infoUpdate.updateuser)
-
-
-const read = async (model,condition)=>{
-    let data = await model.find(condition)
+const deleteOne = async (filterBy) => {
+    let data = await usersModel.findByIdAndUpdate(filterBy, {IS: "? no active"})
     return data
 }
-const create2 = async (model,newData)=>{
-    let data = await model.create(newData)
+const update = async (id,newData) => {
+    let data =await usersModel.findByIdAndUpdate(id,newData)
     return data
 }
 
-module.exports = { create2, read, readone, create, Delete, update }
+
+module.exports = {read, create, deleteOne, update }
