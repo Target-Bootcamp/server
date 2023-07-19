@@ -1,7 +1,7 @@
 const actionsModel = require('../models/actions.model');
 
 
-const read = async (filterBy) =>{
+const read = async (filterBy) => {
     let data = await actionsModel.findOne(filterBy)
     return data
 }
@@ -19,26 +19,18 @@ const del = async (filterBy) => {
 // }
 
 
-async function update(actionId, arrName, objectId, keyToUpdate, newData) {
-    let Data
-    const updatedDocument = async () => await actionsModel.findOneAndUpdate(
-        { _id: actionId, [`${arrName}`]: objectId },
-        { $set: { [`${arrName}.$.${keyToUpdate}`]: newData } },
-        { new: true },
-
-        (err, updatedDocument) => {
-            if (err) {
-                console.error(err);
-            } else {
-                console.log('Document updated successfully:', updatedDocument);
-                Data = updatedDocument
-                return updatedDocument
-            }
-        }
+async function updateNested(actionId, arrName, objectId, newData) {
+    const dataToUpdate = Object.entries(newData)
+    let Data = await actionsModel.findOneAndUpdate(
+        { _id: actionId, [`${arrName}._id`]: objectId },
+        { $set: { [`${arrName}.$.${dataToUpdate[0][0]}`]: dataToUpdate[0][1] } },
+        { new: true }
     )
     return Data
 }
-// const update = async (infoUpdate) => await actionsModel.updateOne({ _id: infoUpdate._id }, infoUpdate.updateaction)
 
 
-module.exports = { read, create, Delete, update }
+const update = async (infoUpdate) => await actionsModel.updateOne({ _id: infoUpdate._id }, infoUpdate.updateaction, { new: true })
+
+
+module.exports = { read, create, update, updateNested }
