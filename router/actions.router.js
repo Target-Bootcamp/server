@@ -4,7 +4,7 @@ const {createFun,readFun,deleteFun,updateFun,updateNestedFun} = require('../BL/s
 
 
           
-router.put('/nest/:actionId/:arrKey/:taskId', async (req, res) => {
+router.put('/:actionId/:arrKey/:taskId', async (req, res) => {
     const { actionId, arrKey, taskId } = req.params
     try {
         const result = await updateNestedFun(actionId, arrKey, taskId, req.body)

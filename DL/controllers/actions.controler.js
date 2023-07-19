@@ -25,7 +25,7 @@ async function updateNested(actionId, arrName, objectId, dataToUpdateArrysKey,da
 
 
 const update = async (id,newData) => {
-    await actionsModel.updateOne(id,newData)
+   return await actionsModel.findByIdAndUpdate(id,newData, {new: true})
 }
 
 
