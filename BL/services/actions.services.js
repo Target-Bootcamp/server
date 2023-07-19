@@ -1,4 +1,4 @@
-const {create,deletOne,read,updateNested,update} = require("../../DL/controllers/actions.controler")
+const {create,deleteOne,read,updateNested,update} = require("../../DL/controllers/actions.controler")
 
 const createFun = async(data)=>{
     let action = await create(data)
@@ -11,7 +11,7 @@ const readFun = async(filerArray)=>{
     return action
 }
 const deleteFun = async(id)=>{
-    let action = await deletOne(id)
+    let action = await deleteOne(id)
     if (!filerArray) throw "no data "
     return action
 } 
