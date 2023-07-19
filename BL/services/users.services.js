@@ -26,6 +26,7 @@ const updateFun = async(id,data)=>{
     if (!filerArray) throw "no data "
     return action
 }
+module.exports = {createFun,readFun,deleteFun,updateNestedFun,updateFun}
 
 
 
