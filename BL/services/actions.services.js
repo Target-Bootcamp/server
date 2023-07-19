@@ -25,7 +25,6 @@ const updateNestedFun = async (actionId, arrName, objectId, newData) => {
     if (!action) throw "no data"
     return action
 }
-
 const updateFun = async (id, data) => {
     let action = await update(id, data)
     if (!action) throw "no data "
