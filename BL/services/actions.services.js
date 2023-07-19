@@ -1,4 +1,4 @@
-const {create,del,read,update, updateNested} = require("../../DL/controllers/actions.controler")
+const {create,deletOne,read,updateNested,update} = require("../../DL/controllers/actions.controler")
 
 const createFun = async(data)=>{
     let action = await create(data)
@@ -11,16 +11,21 @@ const readFun = async(filerArray)=>{
     return action
 }
 const deleteFun = async(id)=>{
-    let action = await del(id)
+    let action = await deletOne(id)
     if (!filerArray) throw "no data "
     return action
 } 
-const updateFun = async(id,data)=>{
-    return "nothing here yet"
+const updateNestedFun = async(actionId, arrName, objectId, newData)=>{
+    let action = await updateNested(actionId, arrName, objectId, newData)
+    if (!filerArray) throw "no data"
+    return action
 } 
 
+const updateFun = async(id,data)=>{
+    let action = await update(id,data)
+    if (!filerArray) throw "no data "
+    return action
+}
 
-
-
-module.exports = {createFun,readFun,deleteFun,updateFun}
+module.exports = {createFun,readFun,deleteFun,updateNestedFun,updateFun}
 
