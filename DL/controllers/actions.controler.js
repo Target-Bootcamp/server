@@ -9,7 +9,7 @@ const create = async (newData) => {
     let data = await actionsModel.create(newData)
     return data
 }
-const del = async (id) => {
+const deletOne = async (id) => {
     let data = await actionsModel.findByIdAndRemove(id)
     return data
 }
@@ -30,7 +30,9 @@ async function updateNested(actionId, arrName, objectId, newData) {
 }
 
 
-const update = async (infoUpdate) => await actionsModel.updateOne({ _id: infoUpdate._id }, infoUpdate.updateaction, { new: true })
+const update = async (id,newData) => {
+    await actionsModel.updateOne(id,newData)
+}
 
 
-module.exports = { read, create, update, updateNested }
+module.exports = { read, create, update, updateNested ,deletOne}

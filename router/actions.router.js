@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {createFun,readFun,deleteFun,updateFun} = require('../BL/services/actions.services')
+const {createFun,readFun,deleteFun,updateFun,updateNestedFun} = require('../BL/services/actions.services')
 const {updateNested } = require("../DL/controllers/actions.controler")
 
 // router.post('/:actionId/task', async (req, res) => { })
@@ -9,7 +9,7 @@ const {updateNested } = require("../DL/controllers/actions.controler")
 router.put('/:actionId/:arrKey/:taskId', async (req, res) => {
     const { actionId, arrKey, taskId } = req.params
     try {
-        const result = await updateNested(actionId, arrKey, taskId, req.body)
+        const result = await updateNestedFun(actionId, arrKey, taskId, req.body)
         res.send(result)
     } catch (error) {
         console.log(error);
