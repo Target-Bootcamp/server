@@ -2,15 +2,15 @@ const actionsModel = require('../models/actions.model');
 
 
 const read = async (filterBy) =>{
-    let data = await actionsModel.findOne(filterBy)
+    let data = await actionsModel.find(filterBy)
     return data
 }
 const create = async (newData) => {
     let data = await actionsModel.create(newData)
     return data
 }
-const del = async (filterBy) => {
-    let data = await actionsModel.findByIdAndUpdate(filterBy, { IS: "? no active" })
+const del = async (id) => {
+    let data = await actionsModel.findByIdAndRemove(id)
     return data
 }
 // const update = async (infoUpdate) => {
@@ -41,4 +41,4 @@ async function update(actionId, arrName, objectId, keyToUpdate, newData) {
 // const update = async (infoUpdate) => await actionsModel.updateOne({ _id: infoUpdate._id }, infoUpdate.updateaction)
 
 
-module.exports = { read, create, Delete, update }
+module.exports = { read, create, del, update }
