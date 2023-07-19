@@ -1,4 +1,4 @@
-const {create,del,read,update,} = require("../../DL/controllers/actions.controler")
+const {create,del,read,update, updateNested} = require("../../DL/controllers/actions.controler")
 
 const createFun = async(data)=>{
     let action = await create(data)
@@ -18,6 +18,9 @@ const deleteFun = async(id)=>{
 const updateFun = async(id,data)=>{
     return "nothing here yet"
 } 
+
+
+
 
 module.exports = {createFun,readFun,deleteFun,updateFun}
 
