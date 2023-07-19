@@ -1,13 +1,9 @@
 const usersModel = require('../models/users.model');
 
-
-
-
 const read = async (filterBy) => {
     let data = await usersModel.find(filterBy)
     return data
 }
-
 const create = async (newData) => {
    let data = await usersModel.create(newData)
    return data
