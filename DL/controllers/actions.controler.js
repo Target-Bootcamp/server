@@ -13,11 +13,6 @@ const deleteOne = async (id) => {
     let data = await actionsModel.findByIdAndRemove(id)
     return data
 }
-// const update = async (infoUpdate) => {
-//     let data = await actionsModel.findByIdAndUpdate({ _id: infoUpdate._id }, infoUpdate.updateaction)
-//     return data
-// }
-
 
 async function updateNested(actionId, arrName, objectId, dataToUpdateArrysKey,dataToUpdateArrysVal) {
     let Data = await actionsModel.findOneAndUpdate(

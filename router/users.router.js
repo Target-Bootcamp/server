@@ -1,37 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const {create,create2,read} = require('../DL/controllers/users.controler')
+const {createFun,readFun,deleteFun,updateFun} = require('../BL/services/users.services')
 
-// router.post('/',async(req, res)=>{
-//     try {
-//         console.log(req.body);
-//         let data = await create(req.body)
-//         res.send(data)
-//     } catch (error) {
-//          console.log(error);
-//         res.status(400).send(error)
-//     }
-// })
-router.put('/:actionId/:arrKey/:taskId', async (req, res) => {
-    const { actionId, arrKey, taskId } = req.params
-    try {
-        const result = await updateNestedFun(actionId, arrKey, taskId, req.body)
-        res.send(result)
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error)
-    }
-})
 
-router.post('/', async (req, res) => {
-    try {
-        let data = await createFun(req.body)
-        res.send(data)
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error)
-    }
-})
+
 router.get("/", async (req, res) => {
     try {
         let data = await readFun({})
@@ -46,6 +18,15 @@ router.get("/:id", async (req, res) => {
         res.send(data[0])
     } catch (error) {
         res.status(400).send(error.message)
+    }
+})
+router.post('/', async (req, res) => {
+    try {
+        let data = await createFun(req.body)
+        res.send(data)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error)
     }
 })
 router.delete("/:id",async(req, res) => {
