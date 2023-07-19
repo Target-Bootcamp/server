@@ -1,16 +1,16 @@
 const actionsModel = require('../models/actions.model');
 
 
-const read = async (filterBy) => {
-    let data = await actionsModel.findOne(filterBy)
+const read = async (filterBy) =>{
+    let data = await actionsModel.find(filterBy)
     return data
 }
 const create = async (newData) => {
     let data = await actionsModel.create(newData)
     return data
 }
-const del = async (filterBy) => {
-    let data = await actionsModel.findByIdAndUpdate(filterBy, { IS: "? no active" })
+const del = async (id) => {
+    let data = await actionsModel.findByIdAndRemove(id)
     return data
 }
 // const update = async (infoUpdate) => {

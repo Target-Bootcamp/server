@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { create, del, read, update } = require('../DL/controllers/actions.controler')
+const {createFun,readFun,deleteFun,updateFun} = require('../BL/services/actions.services')
+const {updateNested } = require("../DL/controllers/actions.controler")
 
-router.post('/:actionId/task', async (req, res) => { })
+// router.post('/:actionId/task', async (req, res) => { })
 
           
 router.put('/:actionId/:arrKey/:taskId', async (req, res) => {
@@ -18,8 +19,7 @@ router.put('/:actionId/:arrKey/:taskId', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        console.log(req.body);
-        let data = await create(req.body)
+        let data = await createFun(req.body)
         res.send(data)
     } catch (error) {
         console.log(error);
@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 })
 router.get("/", async (req, res) => {
     try {
-        let data = await read({})
+        let data = await readFun({})
         res.send(data)
     } catch (error) {
 
@@ -36,14 +36,29 @@ router.get("/", async (req, res) => {
 })
 router.get("/:id", async (req, res) => {
     try {
-        let data = await read({ _id: req.params.id })
-        res.send(data)
+        let data = await readFun({_id: req.params.id})
+        res.send(data[0])
     } catch (error) {
-
+        res.status(400).send(error.message)
     }
 })
-router.post("/", (req, res) => {
-
+router.delete("/:id",async(req, res) => {
+    try {
+        let data = await deleteFun(req.params.id)
+        res.send(data)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
 })
+
+router.put("/:id",async(req, res) => {
+    try {
+        let data = await updateFun(req.params.id, req.body)
+        res.send(data)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
+
 
 module.exports = router
