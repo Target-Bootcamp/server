@@ -1,13 +1,13 @@
-const { create, deleteOne, read, updateNested, update } = require("../../DL/controllers/actions.controler")
+const { create, deleteOne, read, updateNested, update, readDates } = require("../../DL/controllers/actions.controler")
 
 const createFun = async (data) => {
     let action = await create(data)
     if (!data) throw "no data "
     return action
 }
-const readFun = async (filerArray) => {
-    let action = await read(filerArray)
-    if (!filerArray) throw "no data "
+const readFun = async (filterArray) => {
+    let action = await read(filterArray)
+    if (!filterArray) throw "no data "
     return action
 }
 const deleteFun = async (id) => {
@@ -16,7 +16,6 @@ const deleteFun = async (id) => {
     return action
 }
 const updateNestedFun = async (actionId, arrName, objectId, newData) => {
-
     const dataToUpdateArrys = Object.entries(newData)
     const dataToUpdateArrysKey = dataToUpdateArrys[0][0]
     const dataToUpdateArrysVal = dataToUpdateArrys[0][1]
@@ -31,5 +30,12 @@ const updateFun = async (id, data) => {
     return action
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun }
+const getDatesFun = async (selctor, key) => {
+    const dateNow = new Date()
+    const endWeek = new Date(dateNow.getTime() + 7 * 24 * 60 * 60 * 1000)
+    let data = await readDates(dateNow, endWeek, selctor, key)
+    return data
+}
+
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun }
 
