@@ -1,15 +1,49 @@
 const express = require('express')
 const router = express.Router()
-const {create,create2,read} = require('../DL/controllers/users.controler')
+const {createFun,readFun,deleteFun,updateFun} = require('../BL/services/users.services')
 
-router.post('/',async(req, res)=>{
+
+
+router.get("/", async (req, res) => {
     try {
-        console.log(req.body);
-        let data = await create(req.body)
+        let data = await readFun({})
         res.send(data)
     } catch (error) {
-         console.log(error);
+
+    }
+})
+router.get("/:id", async (req, res) => {
+    try {
+        let data = await readFun({_id: req.params.id})
+        res.send(data[0])
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
+router.post('/', async (req, res) => {
+    try {
+        let data = await createFun(req.body)
+        res.send(data)
+    } catch (error) {
+        console.log(error);
         res.status(400).send(error)
+    }
+})
+router.delete("/:id",async(req, res) => {
+    try {
+        let data = await deleteFun(req.params.id)
+        res.send(data)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
+
+router.put("/:id",async(req, res) => {
+    try {
+        let data = await updateFun(req.params.id, req.body)
+        res.send(data)
+    } catch (error) {
+        res.status(400).send(error.message)
     }
 })
 

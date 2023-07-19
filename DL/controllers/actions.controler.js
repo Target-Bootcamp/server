@@ -1,10 +1,32 @@
 const actionsModel = require('../models/actions.model');
 
 
-const read = async (filterBy) => await actionsModel.findOne(filterBy)
-const create = async (newData) => await actionsModel.create(newData)
-const del = async (filterBy) => await actionsModel.findByIdAndUpdate(filterBy, { IS: "? no active" })
-const update = async (infoUpdate) => await actionsModel.findByIdAndUpdate({ _id: infoUpdate._id }, infoUpdate.updateaction)
+const read = async (filterBy) =>{
+    let data = await actionsModel.find(filterBy)
+    return data
+}
+const create = async (newData) => {
+    let data = await actionsModel.create(newData)
+    return data
+}
+const deleteOne = async (id) => {
+    let data = await actionsModel.findByIdAndRemove(id)
+    return data
+}
+
+async function updateNested(actionId, arrName, objectId, dataToUpdateArrysKey,dataToUpdateArrysVal) {
+    let Data = await actionsModel.findOneAndUpdate(
+        { _id: actionId, [`${arrName}._id`]: objectId },
+        { $set: { [`${arrName}.$.${dataToUpdateArrysKey}`]: dataToUpdateArrysVal } },
+        { new: true }
+    )
+    return Data 
+}
 
 
-module.exports = {read, create,  del, update }
+const update = async (id,newData) => {
+   return await actionsModel.findByIdAndUpdate(id,newData, {new: true})
+}
+
+
+module.exports = { read, create, update, updateNested ,deleteOne}
