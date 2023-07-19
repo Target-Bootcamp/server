@@ -19,15 +19,13 @@ const deletOne = async (id) => {
 // }
 
 
-async function updateNested(actionId, arrName, objectId, newData) {
-    const dataToUpdate = Object.entries(newData)
+async function updateNested(actionId, arrName, objectId, dataToUpdateArrysKey,dataToUpdateArrysVal) {
     let Data = await actionsModel.findOneAndUpdate(
         { _id: actionId, [`${arrName}._id`]: objectId },
-        { $set: { [`${arrName}.$.${dataToUpdate[0][0]}`]: dataToUpdate[0][1] } },
+        { $set: { [`${arrName}.$.${dataToUpdateArrysKey}`]: dataToUpdateArrysVal } },
         { new: true }
     )
-    return Data
-    
+    return Data 
 }
 
 

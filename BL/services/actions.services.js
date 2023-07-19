@@ -16,7 +16,12 @@ const deleteFun = async(id)=>{
     return action
 } 
 const updateNestedFun = async(actionId, arrName, objectId, newData)=>{
-    let action = await updateNested(actionId, arrName, objectId, newData)
+    
+    const dataToUpdateArrys = Object.entries(newData)
+    const dataToUpdateArrysKey=dataToUpdateArrys[0][0]
+    const dataToUpdateArrysVal=dataToUpdateArrys[0][1]
+    
+    let action = await updateNested(actionId, arrName, objectId,dataToUpdateArrysKey,dataToUpdateArrysVal )
     if (!filerArray) throw "no data"
     return action
 } 
