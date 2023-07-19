@@ -32,5 +32,10 @@ const updateFun = async (id, data) => {
     return action
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun }
-
+const activities = async (number) => {
+    let action = await read()
+    if (!filerArray) throw "no data "
+    
+    return console.log(action.splice(0, Number(number)))
+}
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun ,activities}

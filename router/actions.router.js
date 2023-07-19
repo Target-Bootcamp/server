@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {createFun,readFun,deleteFun,updateFun,updateNestedFun} = require('../BL/services/actions.services')
+const {createFun,readFun,deleteFun,updateFun,updateNestedFun,activities} = require('../BL/services/actions.services')
 
 
           
@@ -56,7 +56,14 @@ router.delete("/:id",async(req, res) => {
         res.status(400).send(error.message)
     }
 })
-
+router.get("/activities/:number", async (req, res) => {
+    try {
+        let data = await activities( req.params.number)
+        res.send(data)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
 
 
 
