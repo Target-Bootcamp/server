@@ -29,8 +29,10 @@ const update = async (id,newData) => {
 }
 
 const readNumber = async (number) =>{
-    let data = await actionsModel.find(filterBy)
+    
+    let data = await actionsModel.find()
     return data
+    
 }
 
 module.exports = { read, create, update, updateNested ,deleteOne,readNumber}

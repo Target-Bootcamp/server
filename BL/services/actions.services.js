@@ -33,7 +33,7 @@ const updateFun = async (id, data) => {
 }
 
 const activities = async (number) => {
-    let action = await rreadNumber(number)
+    let action = await readNumber(number)
     if (!filerArray) throw "no data "
     
     return action
