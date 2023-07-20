@@ -28,14 +28,22 @@ const getNested = async (actionId, arrKey, kId) => {
     return (!kId ? data[arrKey] : data[arrKey].filter(val => val._id == kId))
     // return data[arrKey]
 }
-const createNested = async (actionId, arrKey, newDta) => {
+const createNested = async (actionId, arrKey, newData) => {
     let data = await actionsModel.findOneAndUpdate(
         { _id: actionId },
-        { $push: { [arrKey]: newDta } },
+        { $push: { [arrKey]: newData } },
         { new: true }
     ).select(`${arrKey} name`)// get & update 
     return data
 }
+createNested("64b7a5230366c31bd049cbf0","files",{
+    fileType: "application",
+    size: 5113700,
+    fileName: "resources.pak",
+    createdDate: "20-07-23",
+    createdOuer: "22:24",
+    filePath: "./public/root/64b7a5230366c31bd049cbf0/20-07-23__22-24-18.627__resources.pak"
+}).then(console.log())
 async function updateNested(actionId, arrName, objectId, dataToUpdateKey, dataToUpdateVal) {
     let data = await actionsModel.findOneAndUpdate(
         { _id: actionId, [`${arrName}._id`]: objectId },
@@ -56,7 +64,7 @@ const deleteNested= async(actionId,arrKey,keyId )=>{
     // .select(`${arrKey} name`)// get & update 
     return data   
 }
-deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
+//deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
 // dates functions
 const readDates = async (date1, date2, arrKey, keyDate) => {
     // date1 = new Date()
