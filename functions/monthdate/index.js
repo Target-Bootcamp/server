@@ -12,6 +12,6 @@ const month = 7; // יולי (month מתחיל ב-1 עד 12)
 
 const { start, end } = getMonthRange(year, month)
 
-console.log(start, end)
+// console.log(start, end)
 
 module.exports = { getMonthRange }
