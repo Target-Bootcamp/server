@@ -3,31 +3,31 @@ const router = express.Router()
 const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getDatesFun, getNestedFun } = require('../BL/services/actions.services')
 const { getMonthRange } = require('../functions/monthdate')
 // fs
-const {checkIfEmpty,renameFile,crateFolder,crateFile,editFile,readFile,readFolder,deleteFF,claerFolder} = require("../functions/fs.functions")
+const { checkIfEmpty, renameFile, crateFolder, crateFile, editFile, readFile, readFolder, deleteFF, claerFolder } = require("../functions/fs.functions")
 
 const { uploadFile } = require("../functions/upload.functions")
-const {fuulDateOver,getDate,getOuer,getOuerMS} = require('../functions/getTime.functions')
+const { fuulDateOver, getDate, getOuer, getOuerMS } = require('../functions/getTime.functions')
 
 const root = "./DL/root"
 
 // bnana
-// claerFolder(`${root}/bnana`)
+claerFolder(`${root}/bnana`)
 
-router.post('/:folder',uploadFile("file"), async (req, res) => {
+router.post('/:folder', uploadFile("file"), async (req, res) => {
     const file = req.file
     const folder = req.params.folder
     const fileName = file.originalname
-    const folderPath =`${root}/${folder}`
+    const folderPath = `${root}/${folder}`
     try {
         crateFolder(folderPath)
-        renameFile(file.path,`${folderPath}/${fuulDateOver}__${fileName}`)
+        renameFile(file.path, `${folderPath}/${fuulDateOver}__${fileName}`)
         const data = {
             fileType: file.mimetype.split("/")[0],
             size: file.size,
             fileName,
             createdDate: getDate(),
             createdOuer: getOuer(),
-            filePath:`${folderPath}/${fuulDateOver}__${fileName}`
+            filePath: `${folderPath}/${fuulDateOver}__${fileName}`
         }
         console.log(data);
         res.send(file)
@@ -37,8 +37,8 @@ router.post('/:folder',uploadFile("file"), async (req, res) => {
     }
 })
 
- router.get('/:actionId/:arrKey', async (req, res) => {
-    const { actionId, arrKey} = req.params
+router.get('/:actionId/:arrKey', async (req, res) => {
+    const { actionId, arrKey } = req.params
     try {
         const result = await getNestedFun(actionId, arrKey,)
         res.send(result)
@@ -46,9 +46,9 @@ router.post('/:folder',uploadFile("file"), async (req, res) => {
         console.log(error);
         res.status(400).send(error)
     }
- })
+})
 
- // router.get('/:actionId/:arrKey/:kId', async (req, res) => {})
+// router.get('/:actionId/:arrKey/:kId', async (req, res) => {})
 
 // router.post('/:actionId/:arrKey', async (req, res) => {})
 
@@ -59,7 +59,7 @@ router.put('/:actionId/:arrKey/:kId', async (req, res) => {
         res.send(result)
     } catch (error) {
         console.log(error);
-        res.status(400).send(error)
+        res.status(400).send(error.message || error)
     }
 })
 
@@ -108,7 +108,7 @@ router.get('/:selctor/:key', async (req, res) => {
         res.status(400).send(error.message)
     }
 })
-// router.get('/actionId/:selctor/:month', async (req, res) => {
+router.get('/actionId/:selctor/:month', async (req, res) => {
 
     const { start, end } = getMonthRange(year, month)
     const { selctor, key } = req.params
@@ -118,7 +118,7 @@ router.get('/:selctor/:key', async (req, res) => {
     } catch (error) {
         res.status(400).send(error.message)
     }
-// })
+})
 router.delete("/:id", async (req, res) => {
     try {
         let data = await deleteFun(req.params.id)
