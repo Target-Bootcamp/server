@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         let data = await readFun({_id: req.params.id})
-        res.send(data[0])
+        res.send(data)
     } catch (error) {
         res.status(400).send(error.message)
     }
