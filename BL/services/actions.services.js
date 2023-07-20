@@ -1,21 +1,17 @@
 const { create, deleteOne, read, updateNested, update, readDates, getNested } = require("../../DL/controllers/actions.controler")
 
-const createFun = async (data) => {
-    let action = await create(data)
-    if (!data) throw "no data "
+const getNestedFun = async (actionId, arrKey, kId) => {//get a array ||
+    let action = await getNested(actionId, arrKey, kId)
     return action
+
 }
-const readFun = async (filterArray) => {
-    let action = await read(filterArray)
-    if (!filterArray) throw "no data "
-    return action
+const getDatesFun = async (selctor, key) => {
+    const dateNow = new Date()
+    const endWeek = new Date(dateNow.getTime() + 7 * 24 * 60 * 60 * 1000)
+    let data = await readDates(dateNow, endWeek, selctor, key)
+    return data
 }
-const deleteFun = async (id) => {
-    let action = await deleteOne(id)
-    if (!action) throw "no data "
-    return action
-}
-const updateNestedFun = async (actionId, arrName, objectId, newData) => {
+const updateNestedFun = async (actionId, arrName, objectId, newData) => {//update a key
     const dataToUpdateArrys = Object.entries(newData)
     const dataToUpdateArrysKey = dataToUpdateArrys[0][0]
     const dataToUpdateArrysVal = dataToUpdateArrys[0][1]
@@ -24,24 +20,36 @@ const updateNestedFun = async (actionId, arrName, objectId, newData) => {
     if (!action) throw "no data"
     return action
 }
-
-const getNestedFun = async (actionId, arrKey) => {
-    let action = await getNested(actionId, arrKey)
+const creatrNestedFun = async (actionId, arrName, objectId, newData) => {
+    let action = await updateNested(actionId, arrName, objectId, newData)
+    if (!action) throw "no data"
     return action
+}
+async function handleUpdate(actionId, arrName, objectId, newData){
 
+}
+    
+
+const readFun = async (filterArray) => {
+    let action = await read(filterArray)
+    if (!filterArray) throw "no data "
+    return action
 }
 const updateFun = async (id, data) => {
     let action = await update(id, data)
     if (!action) throw "no data "
     return action
 }
-
-const getDatesFun = async (selctor, key) => {
-    const dateNow = new Date()
-    const endWeek = new Date(dateNow.getTime() + 7 * 24 * 60 * 60 * 1000)
-    let data = await readDates(dateNow, endWeek, selctor, key)
-    return data
+const createFun = async (data) => {
+    let action = await create(data)
+    if (!data) throw "no data "
+    return action
+}
+const deleteFun = async (id) => {
+    let action = await deleteOne(id)
+    if (!action) throw "no data "
+    return action
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun }
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun,creatrNestedFun,handleUpdate }
 
