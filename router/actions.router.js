@@ -2,7 +2,40 @@ const express = require('express')
 const router = express.Router()
 const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getDatesFun, getNestedFun } = require('../BL/services/actions.services')
 const { getMonthRange } = require('../functions/monthdate')
+// fs
+const {checkIfEmpty,renameFile,crateFolder,crateFile,editFile,readFile,readFolder,deleteFF,claerFolder} = require("../functions/fs.functions")
 
+const { uploadFile } = require("../functions/upload.functions")
+const {fuulDateOver,getDate,getOuer,getOuerMS} = require('../functions/getTime.functions')
+
+const root = "./DL/root"
+
+// bnana
+// claerFolder(`${root}/bnana`)
+
+router.post('/:folder',uploadFile("file"), async (req, res) => {
+    const file = req.file
+    const folder = req.params.folder
+    const fileName = file.originalname
+    const folderPath =`${root}/${folder}`
+    try {
+        crateFolder(folderPath)
+        renameFile(file.path,`${folderPath}/${fuulDateOver}__${fileName}`)
+        const data = {
+            fileType: file.mimetype.split("/")[0],
+            size: file.size,
+            fileName,
+            createdDate: getDate(),
+            createdOuer: getOuer(),
+            filePath:`${folderPath}/${fuulDateOver}__${fileName}`
+        }
+        console.log(data);
+        res.send(file)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error)
+    }
+})
 
  router.get('/:actionId/:arrKey', async (req, res) => {
     const { actionId, arrKey} = req.params
@@ -47,6 +80,9 @@ router.post('/', async (req, res) => {
         res.status(400).send(error)
     }
 })
+
+
+
 router.get("/", async (req, res) => {
     try {
         let data = await readFun({})
