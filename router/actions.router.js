@@ -8,12 +8,15 @@ const { checkIfEmpty, renameFile, crateFolder, crateFile, editFile, readFile, re
 const { uploadFile } = require("../functions/upload.functions")
 const { fuulDateOver, getDate, getOuer, getOuerMS } = require('../functions/getTime.functions')
 
-const root = "./DL/root"
+const root = "./public/root"
 
 // bnana
 claerFolder(`${root}/bnana`)
 
-router.post('/:folder', uploadFile("file"), async (req, res) => {
+
+
+router.post('/:folder',uploadFile("file"), async (req, res) => {
+
     const file = req.file
     const folder = req.params.folder
     const fileName = file.originalname
