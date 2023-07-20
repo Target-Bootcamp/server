@@ -1,4 +1,4 @@
-const { create, deleteOne, read, updateNested, update, readDates } = require("../../DL/controllers/actions.controler")
+const { create, deleteOne, read, updateNested, update, readDates,getNested } = require("../../DL/controllers/actions.controler")
 
 const createFun = async (data) => {
     let action = await create(data)
@@ -24,6 +24,11 @@ const updateNestedFun = async (actionId, arrName, objectId, newData) => {
     if (!action) throw "no data"
     return action
 }
+
+const getNestedFun=async(actionId,arrKey)=>{
+ let sction= await getNested(actionId,arrKey)
+
+}
 const updateFun = async (id, data) => {
     let action = await update(id, data)
     if (!action) throw "no data "
@@ -37,5 +42,5 @@ const getDatesFun = async (selctor, key) => {
     return data
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun }
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun ,getNestedFun}
 

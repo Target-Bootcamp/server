@@ -1,13 +1,28 @@
 const express = require('express')
 const router = express.Router()
-const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getDatesFun } = require('../BL/services/actions.services')
+const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getDatesFun, getNestedFun } = require('../BL/services/actions.services')
+const { getMonthRange } = require('../functions/monthdate')
 
 
-
-router.put('/:actionId/:arrKey/:taskId', async (req, res) => {
-    const { actionId, arrKey, taskId } = req.params
+ router.get('/:actionId/:arrKey', async (req, res) => {
+    const { actionId, arrKey} = req.params
     try {
-        const result = await updateNestedFun(actionId, arrKey, taskId, req.body)
+        const result = await getNestedFun(actionId, arrKey,)
+        res.send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error)
+    }
+ })
+
+ // router.get('/:actionId/:arrKey/:kId', async (req, res) => {})
+
+// router.post('/:actionId/:arrKey', async (req, res) => {})
+
+router.put('/:actionId/:arrKey/:kId', async (req, res) => {
+    const { actionId, arrKey, kId } = req.params
+    try {
+        const result = await updateNestedFun(actionId, arrKey, kId, req.body)
         res.send(result)
     } catch (error) {
         console.log(error);
@@ -48,7 +63,6 @@ router.get("/:id", async (req, res) => {
         res.status(400).send(error.message)
     }
 })
-
 router.get('/:selctor/:key', async (req, res) => {
     const { selctor, key } = req.params
     try {
@@ -58,7 +72,17 @@ router.get('/:selctor/:key', async (req, res) => {
         res.status(400).send(error.message)
     }
 })
+// router.get('/actionId/:selctor/:month', async (req, res) => {
 
+    const { start, end } = getMonthRange(year, month)
+    const { selctor, key } = req.params
+    try {
+        // let data = await ?(selctor, start,end)
+        res.send(data)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+// })
 router.delete("/:id", async (req, res) => {
     try {
         let data = await deleteFun(req.params.id)
