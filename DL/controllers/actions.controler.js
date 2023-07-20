@@ -28,5 +28,9 @@ const update = async (id,newData) => {
    return await actionsModel.findByIdAndUpdate(id,newData, {new: true})
 }
 
+const readNumber = async (number) =>{
+    let data = await actionsModel.find(filterBy)
+    return data
+}
 
-module.exports = { read, create, update, updateNested ,deleteOne}
+module.exports = { read, create, update, updateNested ,deleteOne,readNumber}

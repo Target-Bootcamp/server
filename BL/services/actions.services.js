@@ -1,4 +1,4 @@
-const { create, deleteOne, read, updateNested, update } = require("../../DL/controllers/actions.controler")
+const { create, deleteOne, read, updateNested, update,readNumber } = require("../../DL/controllers/actions.controler")
 
 const createFun = async (data) => {
     let action = await create(data)
@@ -33,7 +33,7 @@ const updateFun = async (id, data) => {
 }
 
 const activities = async (number) => {
-    let action = await read()
+    let action = await rreadNumber(number)
     if (!filerArray) throw "no data "
     
     return action
