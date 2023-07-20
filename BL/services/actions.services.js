@@ -28,12 +28,10 @@ const creatrNestedFun = async (actionId, arrName, objectId, newData) => {
 async function handleUpdate(actionId, arrName, objectId, newData) {
     switch (arrName) {
         case "tasks":
+        case "schedules":
             getNestedFun(actionId, arrName, kId)
             break;
         case "users":
-            getNestedFun(actionId, arrName, kId)
-            break;
-        case "schedules":
             getNestedFun(actionId, arrName, kId)
             break;
         case "files":
@@ -41,13 +39,14 @@ async function handleUpdate(actionId, arrName, objectId, newData) {
             break;
 
         default:
-            return
+            return {}
     }
 }
 
 async function handleCreate(actionId, arrName, objectId, newData) {
     switch (arrName) {
         case "tasks":
+        case "schedules":
             getNestedFun(actionId, arrName, kId)
             break;
         case "users":
@@ -55,15 +54,12 @@ async function handleCreate(actionId, arrName, objectId, newData) {
             // update to action>>users>>push[newUser._id]
             getNestedFun(actionId, arrName, kId)
             break;
-        case "schedules":
-            getNestedFun(actionId, arrName, kId)
-            break;
         case "files":
             getNestedFun(actionId, arrName, kId)
             break;
 
         default:
-            return
+            return {}
     }
 }
 
