@@ -25,10 +25,47 @@ const creatrNestedFun = async (actionId, arrName, objectId, newData) => {
     if (!action) throw "no data"
     return action
 }
-async function handleUpdate(actionId, arrName, objectId, newData){
+async function handleUpdate(actionId, arrName, objectId, newData) {
+    switch (arrName) {
+        case "tasks":
+            getNestedFun(actionId, arrName, kId)
+            break;
+        case "users":
+            getNestedFun(actionId, arrName, kId)
+            break;
+        case "schedules":
+            getNestedFun(actionId, arrName, kId)
+            break;
+        case "files":
+            getNestedFun(actionId, arrName, kId)
+            break;
 
+        default:
+            return
+    }
 }
-    
+
+async function handleCreate(actionId, arrName, objectId, newData) {
+    switch (arrName) {
+        case "tasks":
+            getNestedFun(actionId, arrName, kId)
+            break;
+        case "users":
+            // let newUser=create new user (await, service user)
+            // update to action>>users>>push[newUser._id]
+            getNestedFun(actionId, arrName, kId)
+            break;
+        case "schedules":
+            getNestedFun(actionId, arrName, kId)
+            break;
+        case "files":
+            getNestedFun(actionId, arrName, kId)
+            break;
+
+        default:
+            return
+    }
+}
 
 const readFun = async (filterArray) => {
     let action = await read(filterArray)
@@ -51,5 +88,5 @@ const deleteFun = async (id) => {
     return action
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun,creatrNestedFun,handleUpdate }
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun, creatrNestedFun, handleUpdate }
 

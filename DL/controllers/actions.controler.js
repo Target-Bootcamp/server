@@ -4,11 +4,11 @@ const { uploadFile } = require('../../functions/upload.functions');
 const { get } = require('../../router/actions.router');
 
 const read = async (filterBy) => {
-    let data = await actionsModel.find(filterBy)
+    let data = await actionsModel.find(filterBy).populate('users')
     return data
 }
 const readOne = async (filterBy) => {
-    let data = await actionsModel.findOne({ _id: filterBy })
+    let data = await actionsModel.findOne({ _id: filterBy }).populate("users")
     return data
 }
 const create = async (newData) => {
