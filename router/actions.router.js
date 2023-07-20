@@ -7,11 +7,13 @@ const { checkIfEmpty, renameFile, crateFolder, crateFile, editFile, readFile, re
 const { uploadFile } = require("../functions/upload.functions")
 const { fuulDateOver, getDate, getOuer, getOuerMS } = require('../functions/getTime.functions')
 
-const root = "./DL/root"
+const root = "./public/root"
+
 
 //  **** Key/Array of Action
 router.get('/:actionId/:arrKey', async (req, res) => {
     const { actionId, arrKey } = req.params
+
     try {
         const result = await getNestedFun(actionId, arrKey,)
         res.send(result)
