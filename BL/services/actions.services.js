@@ -36,6 +36,6 @@ const activities = async (number) => {
     let action = await read()
     if (!filerArray) throw "no data "
     
-    return console.log(action.splice(0, Number(number)))
+    return action
 }
 module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun ,activities}
