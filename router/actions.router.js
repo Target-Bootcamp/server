@@ -108,7 +108,7 @@ router.get('/:selctor/:key', async (req, res) => {
         res.status(400).send(error.message)
     }
 })
-// router.get('/actionId/:selctor/:month', async (req, res) => {
+router.get('/actionId/:selctor/:month', async (req, res) => {
 
     const { start, end } = getMonthRange(year, month)
     const { selctor, key } = req.params
@@ -118,7 +118,7 @@ router.get('/:selctor/:key', async (req, res) => {
     } catch (error) {
         res.status(400).send(error.message)
     }
-// })
+})
 router.delete("/:id", async (req, res) => {
     try {
         let data = await deleteFun(req.params.id)
