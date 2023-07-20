@@ -13,33 +13,6 @@ const root = "./public/root"
 //  **** Key/Array of Action
 router.get('/:actionId/:arrKey', async (req, res) => {
     const { actionId, arrKey } = req.params
-})
-router.post('/:folder',uploadFile("file"), async (req, res) => {
-    const file = req.file
-    const folder = req.params.folder
-    const fileName = file.originalname
-    const folderPath =`${root}/${folder}`
-    try {
-        crateFolder(folderPath)
-        renameFile(file.path,`${folderPath}/${fuulDateOver}__${fileName}`)
-        const data = {
-            fileType: file.mimetype.split("/")[0],
-            size: file.size,
-            fileName,
-            createdDate: getDate(),
-            createdOuer: getOuer(),
-            filePath:`${folderPath}/${fuulDateOver}__${fileName}`
-        }
-        // console.log(data);
-        res.send(data)
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error)
-    }
-})
-
- router.get('/:actionId/:arrKey', async (req, res) => {
-    const { actionId, arrKey} = req.params
     try {
         const result = await getNestedFun(actionId, arrKey,)
         res.send(result)
@@ -136,8 +109,6 @@ router.delete("/:id", async (req, res) => {
         res.status(400).send(error.message)
     }
 })
-
-
 //  **** get tasks of this week
 router.get('/:selctor/:key', async (req, res) => {
     const { selctor, key } = req.params
@@ -178,8 +149,8 @@ router.post('/:folder', uploadFile("file"), async (req, res) => {
             createdOuer: getOuer(),
             filePath: `${folderPath}/${fuulDateOver}__${fileName}`
         }
-        console.log(data);
-        res.send(file)
+        // console.log(data);
+        res.send(data)
     } catch (error) {
         console.log(error);
         res.status(400).send(error)
