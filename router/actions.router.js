@@ -10,9 +10,6 @@ const { fuulDateOver, getDate, getOuer, getOuerMS } = require('../functions/getT
 
 const root = "./public/root"
 
-// bnana
-claerFolder(`${root}/bnana`)
-
 
 
 router.post('/:folder',uploadFile("file"), async (req, res) => {
