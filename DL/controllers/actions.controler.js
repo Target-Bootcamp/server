@@ -1,5 +1,6 @@
 const actionsModel = require('../models/actions.model');
-
+const {} = require('../../functions/fs.functions')
+const {uploadFile} = require('../../functions/upload.functions')
 
 const read = async (filterBy) => {
     let data = await actionsModel.find(filterBy)
@@ -50,6 +51,8 @@ async function updateNested(actionId, arrName, objectId, dataToUpdateKey, dataTo
 const update = async (id, newData) => {
     return await actionsModel.findByIdAndUpdate(id, newData, { new: true })
 }
+
+
 
 
 module.exports = { read, create, update, updateNested, deleteOne, readDates }
