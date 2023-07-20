@@ -37,7 +37,6 @@ router.delete("/:id",async(req, res) => {
         res.status(400).send(error.message)
     }
 })
-
 router.put("/:id",async(req, res) => {
     try {
         let data = await updateFun(req.params.id, req.body)
