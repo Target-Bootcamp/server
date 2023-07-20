@@ -55,8 +55,12 @@ const actionsSchema = new mongoose.Schema(
                     type: Number
                 },
                 createdDate: {
-                    type: Date,
+                    type: String,
                     default: Date.now
+                },
+                filePath: {
+                    type: String
+
                 }
             }
         ],
@@ -64,7 +68,7 @@ const actionsSchema = new mongoose.Schema(
             {
                 deadline: {
                     type: Date
-                                },
+                },
                 details: {
                     type: String,
                 },
