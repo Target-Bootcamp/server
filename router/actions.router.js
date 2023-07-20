@@ -30,7 +30,7 @@ router.post('/:folder',uploadFile("file"), async (req, res) => {
             filePath: `${folderPath}/${fuulDateOver}__${fileName}`
         }
         console.log(data);
-        res.send(file)
+        res.send(data)
     } catch (error) {
         console.log(error);
         res.status(400).send(error)
