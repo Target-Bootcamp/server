@@ -36,6 +36,7 @@ const createNested = async (actionId, arrKey, newDta) => {
     ).select(`${arrKey} name`)// get & update 
     return data
 }
+// createNested("64b7c81cab163bcddfc1860d","files",).then(console.log())
 async function updateNested(actionId, arrName, objectId, dataToUpdateKey, dataToUpdateVal) {
     let data = await actionsModel.findOneAndUpdate(
         { _id: actionId, [`${arrName}._id`]: objectId },
@@ -56,7 +57,7 @@ const deleteNested= async(actionId,arrKey,keyId )=>{
     // .select(`${arrKey} name`)// get & update 
     return data   
 }
-deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
+// deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
 // dates functions
 const readDates = async (date1, date2, arrKey, keyDate) => {
     // date1 = new Date()

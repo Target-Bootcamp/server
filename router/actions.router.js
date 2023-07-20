@@ -152,8 +152,8 @@ router.post('/:folder', uploadFile("file"), async (req, res) => {
             createdOuer: getOuer(),
             filePath: `${folderPath}/${fuulDateOver}__${fileName}`
         }
-        console.log(data);
-        res.send(file)
+        // console.log(data);
+        res.send(data)
     } catch (error) {
         console.log(error);
         res.status(400).send(error)
