@@ -57,7 +57,12 @@ const actionsSchema = new mongoose.Schema(
                 createdDate: {
                     type: Date,
                     default: Date.now
-                }
+                },
+                
+                    filePath:  {
+                        type:String
+                    },
+                
             }
         ],
         tasks: [
