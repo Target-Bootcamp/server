@@ -57,10 +57,6 @@ const actionsSchema = new mongoose.Schema(
                 createdDate: {
                     type: String,
                     default: Date.now
-                },
-                filePath: {
-                    type: String
-
                 }
             }
         ],

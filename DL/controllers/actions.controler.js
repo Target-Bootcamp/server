@@ -36,13 +36,13 @@ const createNested = async (actionId, arrKey, newData) => {
     ).select(`${arrKey} name`)// get & update 
     return data
 }
- createNested("64b7c81cab163bcddfc1860d", "files", {
-    "fileType": "image",
-    "size": 139403,
-    "createdDate": "gdchgdf",
-    "fileName": "gggDDDDDf55555888999hff55gg.PNG",
-    "filePath": "./public/root/64b85dca1e5b771f92fcf237/20-07-23__23-06-55.574__gggg.PNG"
-}).then(console.log)
+// createNested("64b7c81cab163bcddfc1860d", "files", {
+//     "fileType": "image",
+//     "size": 139403,
+//     "createdDate": "gdchgdf",
+//     "fileName": "gggDDDDDf55555888999hff55gg.PNG",
+//     "filePath": "./public/root/64b85dca1e5b771f92fcf237/20-07-23__23-06-55.574__gggg.PNG"
+// }).then(console.log)
 async function updateNested(actionId, arrName, objectId, dataToUpdateKey, dataToUpdateVal) {
     let data = await actionsModel.findOneAndUpdate(
         { _id: actionId, [`${arrName}._id`]: objectId },
@@ -106,4 +106,4 @@ const readDates = async (date1, date2, arrKey, keyDate) => {
 
 //getNested("64b7c81cab163bcddfc1860d", "schedules", "64b6bd3491215e213dfe2bb4").then(r => console.log(r))
 
-module.exports = { read, readOne, create, update, deleteOne, updateNested, readDates, getNested, createNested }
+module.exports = { read, readOne, create, update, deleteOne, updateNested, readDates, getNested, createNested, deleteNested }

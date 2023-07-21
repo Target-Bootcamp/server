@@ -1,17 +1,17 @@
-const { create, deleteOne, read, updateNested, update, readDates, getNested } = require("../../DL/controllers/actions.controler")
+const { create, deleteOne, read, updateNested, update, readDates, getNested, deleteNested, createNested } = require("../../DL/controllers/actions.controler")
 
-const getNestedFun = async (actionId, arrKey, kId) => {//get a array ||
+const getNestedFun = async (actionId, arrKey, kId) => {//get a array or current key
     let action = await getNested(actionId, arrKey, kId)
     return action
 
 }
-const getDatesFun = async (selctor, key) => {
+const getDatesFun = async (selctor, key) => {// week
     const dateNow = new Date()
     const endWeek = new Date(dateNow.getTime() + 7 * 24 * 60 * 60 * 1000)
     let data = await readDates(dateNow, endWeek, selctor, key)
     return data
 }
-const updateNestedFun = async (actionId, arrName, objectId, newData) => {//update a key
+const updateNestedFun = async (actionId, arrName, objectId, newData) => {//update a current key
     const dataToUpdateArrys = Object.entries(newData)
     const dataToUpdateArrysKey = dataToUpdateArrys[0][0]
     const dataToUpdateArrysVal = dataToUpdateArrys[0][1]
@@ -20,8 +20,13 @@ const updateNestedFun = async (actionId, arrName, objectId, newData) => {//updat
     if (!action) throw "no data"
     return action
 }
-const creatrNestedFun = async (actionId, arrName, objectId, newData) => {
-    let action = await updateNested(actionId, arrName, objectId, newData)
+const creatrNestedFun = async (actionId, arrName, newData) => {
+    let action = await createNested(actionId, arrName, newData)
+    if (!action) throw "no data"
+    return action
+}
+const deleteNestedFun = async (actionId, arrName, objectId,) => {
+    const action = await deleteNested(actionId, arrName, objectId)
     if (!action) throw "no data"
     return action
 }
@@ -84,5 +89,5 @@ const deleteFun = async (id) => {
     return action
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun, creatrNestedFun, handleUpdate }
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun, creatrNestedFun,deleteNestedFun, handleUpdate, handleCreate }
 

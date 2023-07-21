@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getDatesFun, getNestedFun } = require('../BL/services/actions.services')
+const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getDatesFun, getNestedFun, deleteNestedFun, creatrNestedFun, } = require('../BL/services/actions.services')
 const { getMonthRange } = require('../functions/monthdate')
 // fs
 const { checkIfEmpty, renameFile, crateFolder, crateFile, editFile, readFile, readFolder, deleteFF, claerFolder } = require("../functions/fs.functions")
@@ -31,6 +31,17 @@ router.post('/:actionId/:arrKey', async (req, res) => {
         res.status(400).send(error)
     }
 })
+router.put('/.:actionId/:arrKey', async (req, res) => {
+    const { actionId, arrKey } = req.params
+    try {
+        const resoult = await creatrNestedFun(actionId, arrKey, req.body)
+        res.send(resoult)
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+
+    }
+})
 
 //  **** Single value in array of Action
 router.get('/:actionId/:arrKey/:kId', async (req, res) => {
@@ -58,6 +69,16 @@ router.delete('/:actionId/:arrKey/:kId', async (req, res) => {
     const { actionId, arrKey, kId } = req.params
     try {
         const result = await updateNestedFun(actionId, arrKey, kId, req.body)
+        res.send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error.message || error)
+    }
+})
+router.delete('/:actionId/:arrKey/:kId', async (req, res) => {
+    const { actionId, arrKey, kId } = req.params
+    try {
+        const result = await deleteNestedFun(actionId, arrKey, kId,)
         res.send(result)
     } catch (error) {
         console.log(error);
@@ -142,11 +163,10 @@ router.post('/:folder', uploadFile("file"), async (req, res) => {
         crateFolder(folderPath)
         renameFile(file.path, `${folderPath}/${fuulDateOver}__${fileName}`)
         const data = {
+            fileName,
             fileType: file.mimetype.split("/")[0],
             size: file.size,
-            fileName,
-            createdDate: getDate(),
-            createdOuer: getOuer(),
+            createdDate: `${getDate()}_${getOuer()}`,
             filePath: `${folderPath}/${fuulDateOver}__${fileName}`
         }
         // console.log(data);
