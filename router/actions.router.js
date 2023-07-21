@@ -128,7 +128,7 @@ router.get('/actionId/:selctor/:month', async (req, res) => {
         // let data = await ?(selctor, start,end)
         res.send(data)
     } catch (error) {
-        res.status(400).send(error.message)
+         res.status(400).send(error.message)
     }
 })
 
