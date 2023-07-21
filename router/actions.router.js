@@ -142,11 +142,10 @@ router.post('/:folder', uploadFile("file"), async (req, res) => {
         crateFolder(folderPath)
         renameFile(file.path, `${folderPath}/${fuulDateOver}__${fileName}`)
         const data = {
+            fileName,
             fileType: file.mimetype.split("/")[0],
             size: file.size,
-            fileName,
-            createdDate: getDate(),
-            createdOuer: getOuer(),
+            createdDate: `${getDate()}_${getOuer()}`,
             filePath: `${folderPath}/${fuulDateOver}__${fileName}`
         }
         // console.log(data);
