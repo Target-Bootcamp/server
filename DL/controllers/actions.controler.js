@@ -1,8 +1,7 @@
 const actionsModel = require('../models/actions.model');
 const { } = require('../../functions/fs.functions')
-// const { uploadFile } = require('../../functions/upload.functions');
-// const { get } = require('../../router/actions.router');
 
+//   ***base crud***
 const read = async (filterBy) => {
     let data = await actionsModel.find(filterBy).populate('users')
     return data
@@ -22,10 +21,11 @@ const deleteOne = async (id) => {
     let data = await actionsModel.findByIdAndRemove(id)
     return data
 }
-//  ***Nested function
+
+//   ***Nested function***
 const getNested = async (actionId, arrKey, kId) => {
     let data = await actionsModel.findOne({ _id: actionId })
-    return (!kId ? data[arrKey] : data[arrKey].filter(val => val._id == kId))
+    return (!kId ? data[arrKey] :{ array:data[arrKey].filter(val => val._id == kId), arrKey})
     // return data[arrKey]
 }
 const createNested = async (actionId, arrKey, newData) => {
@@ -60,11 +60,12 @@ const deleteNested = async (actionId, arrKey, keyId) => {
         // { $push: { [arrKey]: newDta } },
         { new: true }
     )
-    // .select(`${arrKey} name`)// get & update 
+    .select(`${arrKey} name`)// get & update 
     return data
 }
-// deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
-// dates functions
+//deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
+
+//   ***dates functions***
 const readDates = async (date1, date2, arrKey, keyDate) => {
     // date1 = new Date()
     // date2 = new Date(date1.getTime() + 7 * 24 * 60 * 60 * 1000)
@@ -104,6 +105,7 @@ const readDates = async (date1, date2, arrKey, keyDate) => {
 
 // readDates().then(console.log)
 
-//getNested("64b7c81cab163bcddfc1860d", "schedules", "64b6bd3491215e213dfe2bb4").then(r => console.log(r))
+// getNested("64b7c81cab163bcddfc1860d", "schedules", "64b6bd3491215e213dfe2bb4").then(r => console.log(r))
+// getNested("64b7c81cab163bcddfc1860d", "schedules",).then(r => console.log(r))
 
 module.exports = { read, readOne, create, update, deleteOne, updateNested, readDates, getNested, createNested, deleteNested }
