@@ -22,20 +22,21 @@ const deleteOne = async (id) => {
     let data = await actionsModel.findByIdAndRemove(id)
     return data
 }
-//  ***Nested
+//  ***Nested function
 const getNested = async (actionId, arrKey, kId) => {
     let data = await actionsModel.findOne({ _id: actionId })
     return (!kId ? data[arrKey] : data[arrKey].filter(val => val._id == kId))
     // return data[arrKey]
 }
-const createNested = async (actionId, arrKey, newDta) => {
+const createNested = async (actionId, arrKey, newData) => {
     let data = await actionsModel.findOneAndUpdate(
         { _id: actionId },
-        { $push: { [arrKey]: newDta } },
+        { $push: { [arrKey]: newData } },
         { new: true }
     ).select(`${arrKey} name`)// get & update 
     return data
 }
+// createNested("64b7c81cab163bcddfc1860d","files",).then(console.log())
 async function updateNested(actionId, arrName, objectId, dataToUpdateKey, dataToUpdateVal) {
     let data = await actionsModel.findOneAndUpdate(
         { _id: actionId, [`${arrName}._id`]: objectId },
@@ -46,14 +47,26 @@ async function updateNested(actionId, arrName, objectId, dataToUpdateKey, dataTo
 
     return (getNested(actionId, arrName))
 }
-const readDates = async (date1, date2, arrKey, key) => {
+const deleteNested= async(actionId,arrKey,keyId )=>{
+    let data = await actionsModel.findOneAndUpdate(
+        { _id: actionId },
+        { $pull: { [arrKey]: { _id: keyId } } },
+        // { $push: { [arrKey]: newDta } },
+        { new: true }
+    )
+    // .select(`${arrKey} name`)// get & update 
+    return data   
+}
+// deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
+// dates functions
+const readDates = async (date1, date2, arrKey, keyDate) => {
     // date1 = new Date()
     // date2 = new Date(date1.getTime() + 7 * 24 * 60 * 60 * 1000)
     // arrKey = "tasks"
     // key = "deadline"
     let data = await actionsModel.find(
         {
-            [`${arrKey}.${key}`]: {
+            [`${arrKey}.${keyDate}`]: {
                 "$gte": date1,
                 "$lt": date2
             }
@@ -62,7 +75,7 @@ const readDates = async (date1, date2, arrKey, key) => {
     let newdata = data.map((val, i) => {
         return {
             ...val, [arrKey]: val[arrKey]
-                .filter(item => item[key] < date2 && item[key] > date1)
+                .filter(item => item[keyDate] < date2 && item[keyDate] > date1)
         }
         // val[arrKey].map((val) => {
         //     val[key] < date2 && val[key] > date1 ? newdata = [...newdata, val] : null
