@@ -34,12 +34,15 @@ async function handleUpdate(actionId, arrName, objectId, newData) {
     switch (arrName) {
         case "tasks":
         case "schedules":
+            // condition
             getNestedFun(actionId, arrName, kId)
             break;
         case "users":
+            // condition
             getNestedFun(actionId, arrName, kId)
             break;
         case "files":
+            // condition
             getNestedFun(actionId, arrName, kId)
             break;
 
@@ -89,5 +92,5 @@ const deleteFun = async (id) => {
     return action
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun, creatrNestedFun,deleteNestedFun, handleUpdate, handleCreate }
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun, creatrNestedFun, deleteNestedFun, handleUpdate, handleCreate }
 
