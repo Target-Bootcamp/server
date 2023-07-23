@@ -1,27 +1,22 @@
-function getMonthRange(year, month, day) {
+function getAllDates() {
     const nowDate = new Date()
-    // const zone = { timeZone: 'Asia/Jerusalem' }
-    // const iLZoneDate = new Date().toLocaleString('en-US', zone)// date now
-    // const myYear = iLZoneDate.getFullYear();
-    // const myMonth = iLZoneDate.getMonth() + 1
-    // const myDay = iLZoneDate.getDate()
-    const myYear = nowDate.getFullYear();
-    const myMonth = nowDate.getMonth() + 1
-    const myDay = nowDate.getDate()
-    const aa = new Date()
-
-
+    const zone = { timeZone: 'Asia/Jerusalem' }
+    const iLZoneDate = new Date(nowDate.toLocaleString('en-US', zone))//set date to iLzone
+    const Year = iLZoneDate.getFullYear();
+    const Month = iLZoneDate.getMonth() + 1
+    const Day = iLZoneDate.getDate()
     // תאריך ראשון של החודש
-    const startDate = new Date(myYear, myMonth - 1, 1); // month מתחיל ב-0 (ינואר) עד 11 (דצמבר)
+    const startMonth = new Date(Year, Month - 1, 1); // month מתחיל ב-0 (ינואר) עד 11 (דצמבר)
     // תאריך אחרון של החודש
-    const endDate = new Date(myYear, myMonth, 1); // התאריך 0 של חודש מתייחס ליום האחרון של החודש הקודם
+    const endMonth = new Date(Year, Month, 1); // התאריך 0 של חודש מתייחס ליום האחרון של החודש הקודם
+    // תאריך סוף 7 ימים מהיום
+    const endWeek = new Date(iLZoneDate.getTime() + 7 * 24 * 60 * 60 * 1000)
 
+    // console.log("1", Year, Month, Day,)
+    // console.log("2", startMonth, endMonth, endWeek,)
+    // console.log("3", "ilzone ", iLZoneDate, "globalzone", nowDate)
 
-
-    console.log("1", myYear, myMonth, myDay, " noww " + nowDate, aa)
-    console.log("2", startDate, endDate,)
-    // console.log("3", iLZoneDate)
-    return { start: startDate, end: endDate, nowDate, year, month, day };
+    return { startMonth, endMonth, endWeek, iLZoneDate, Year, Month, Day };
 }
 // דוגמה לשימוש בפונקציה
 // const year = new Date().getFullYear();
@@ -32,8 +27,8 @@ function getMonthRange(year, month, day) {
 // console.log(start, end)
 // console.log(year, month)
 
-getMonthRange()
+// getMonthRange()
 
 
 
-module.exports = { getMonthRange }
+module.exports = { getAllDates }

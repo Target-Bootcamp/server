@@ -7,7 +7,7 @@ const read = async (filterBy) => {
     return data
 }
 const readOne = async (filterBy) => {
-    let data = await actionsModel.findOne({ _id: filterBy }).populate("users")
+    let data = await actionsModel.findOne(filterBy).populate("users")
     return data
 }
 const create = async (newData) => {
@@ -25,7 +25,7 @@ const deleteOne = async (id) => {
 //   ***Nested function***
 const getNested = async (actionId, arrKey, kId) => {
     let data = await actionsModel.findOne({ _id: actionId })
-    return (!kId ? data[arrKey] :{ array:data[arrKey].filter(val => val._id == kId), arrKey})
+    return (!kId ? data[arrKey] : { array: data[arrKey].filter(val => val._id == kId), arrKey })
     // return data[arrKey]
 }
 const createNested = async (actionId, arrKey, newData) => {
@@ -60,7 +60,7 @@ const deleteNested = async (actionId, arrKey, keyId) => {
         // { $push: { [arrKey]: newDta } },
         { new: true }
     )
-    .select(`${arrKey} name`)// get & update 
+        .select(`${arrKey} name`)// get & update 
     return data
 }
 //deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)

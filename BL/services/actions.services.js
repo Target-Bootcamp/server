@@ -1,14 +1,17 @@
-const { create, deleteOne, read, updateNested, update, readDates, getNested, deleteNested, createNested } = require("../../DL/controllers/actions.controler")
+const { readOne, create, deleteOne, read, updateNested, update, readDates, getNested, deleteNested, createNested } = require("../../DL/controllers/actions.controler")
+const getDates = require('../../functions/dates')
+const dates = getDates.getAllDates()//=={ startMonth, endMonth, endWeek, iLZoneDate, Year, Month, Day}
+
 
 const getNestedFun = async (actionId, arrKey, kId) => {//get a array or current key
     let action = await getNested(actionId, arrKey, kId)
     return action
 
 }
-const getDatesFun = async (selctor, key) => {// week
-    const dateNow = new Date()
-    const endWeek = new Date(dateNow.getTime() + 7 * 24 * 60 * 60 * 1000)
-    let data = await readDates(dateNow, endWeek, selctor, key)
+const getEndWeekDatesFun = async (arrName, key) => {// week
+    const dateNow = dates.iLZoneDate
+    const endWeek = dates.endWeek
+    let data = await readDates(dateNow, endWeek, arrName, key)
     return data
 }
 const updateNestedFun = async (actionId, arrName, objectId, newData) => {//update a current key
@@ -30,6 +33,8 @@ const deleteNestedFun = async (actionId, arrName, objectId,) => {
     if (!action) throw "no data"
     return action
 }
+
+
 async function handleUpdate(actionId, arrName, objectId, newData) {
     switch (arrName) {
         case "tasks":
@@ -50,7 +55,6 @@ async function handleUpdate(actionId, arrName, objectId, newData) {
             return {}
     }
 }
-
 async function handleCreate(actionId, arrName, objectId, newData) {
     switch (arrName) {
         case "tasks":
@@ -71,9 +75,16 @@ async function handleCreate(actionId, arrName, objectId, newData) {
     }
 }
 
+
+
+// const readActionsByDateFun= async()=>{
+//     let action = await read({ : filterArray }) 
+//     if (!filterArray) throw "no data "
+//     return action
+// }
 const readFun = async (filterArray) => {
-    let action = await read(filterArray)
-    if (!filterArray) throw "no data "
+    let action = await filterArray ? readOne({ _id: filterArray }) : read({})
+    // if (!filterArray) throw "no data "
     return action
 }
 const updateFun = async (id, data) => {
@@ -92,5 +103,5 @@ const deleteFun = async (id) => {
     return action
 }
 
-module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getDatesFun, getNestedFun, creatrNestedFun, deleteNestedFun, handleUpdate, handleCreate }
+module.exports = { createFun, readFun, deleteFun, updateNestedFun, updateFun, getEndWeekDatesFun, getNestedFun, creatrNestedFun, deleteNestedFun, handleUpdate, handleCreate }
 

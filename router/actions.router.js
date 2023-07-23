@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getDatesFun, getNestedFun, deleteNestedFun, creatrNestedFun, } = require('../BL/services/actions.services')
+const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getEndWeekDatesFun, getNestedFun, deleteNestedFun, creatrNestedFun, } = require('../BL/services/actions.services')
 const { getMonthRange } = require('../functions/dates')
 // fs
 const { checkIfEmpty, renameFile, crateFolder, crateFile, editFile, readFile, readFolder, deleteFF, claerFolder } = require("../functions/fs.functions")
@@ -89,7 +89,7 @@ router.delete('/:actionId/:arrKey/:kId', async (req, res) => {
 //  **** all Actions
 router.get("/", async (req, res) => {
     try {
-        let data = await readFun({})
+        let data = await readFun()
         res.send(data)
     } catch (error) {
 
@@ -109,7 +109,7 @@ router.post('/', async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         let data = await readFun({ _id: req.params.id })
-        res.send(data[0])
+        res.send(data)
     } catch (error) {
         res.status(400).send(error.message)
     }
@@ -130,11 +130,20 @@ router.delete("/:id", async (req, res) => {
         res.status(400).send(error.message)
     }
 })
-//  **** get tasks of this week
-router.get('/:selctor/:key', async (req, res) => {
-    const { selctor, key } = req.params
+//  **** get items by dates(tasks) of this week
+router.get('/:arrKey/:typeDateObjKey', async (req, res) => {
+    const { arrKey, typeDateObjKey } = req.params
     try {
-        let data = await getDatesFun(selctor, key)
+        let data = await getEndWeekDatesFun(arrKey, typeDateObjKey)
+        res.send(data)
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
+//   *** get all actions activs ***
+router.get('/actions/activs', async (req, res) => {
+    try {
+        let data = await getEndWeekDatesFun()
         res.send(data)
     } catch (error) {
         res.status(400).send(error.message)
