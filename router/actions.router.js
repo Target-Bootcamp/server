@@ -15,6 +15,7 @@ router.get('/:actionId/:arrKey', async (req, res) => {
     const { actionId, arrKey } = req.params
     try {
         const result = await getNestedFun(actionId, arrKey,)
+        console.log(result);
         res.send(result)
     } catch (error) {
         console.log(error);
@@ -31,7 +32,7 @@ router.post('/:actionId/:arrKey', async (req, res) => {
         res.status(400).send(error)
     }
 })
-router.put('/.:actionId/:arrKey', async (req, res) => {
+router.put('/:actionId/:arrKey', async (req, res) => {
     const { actionId, arrKey } = req.params
     try {
         const resoult = await creatrNestedFun(actionId, arrKey, req.body)
@@ -56,6 +57,7 @@ router.get('/:actionId/:arrKey/:kId', async (req, res) => {
 })
 router.put('/:actionId/:arrKey/:kId', async (req, res) => {
     const { actionId, arrKey, kId } = req.params
+    console.log(actionId, arrKey, kId, req.body)
     try {
         const result = await updateNestedFun(actionId, arrKey, kId, req.body)
         res.send(result)
