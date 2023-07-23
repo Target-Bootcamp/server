@@ -36,13 +36,7 @@ const createNested = async (actionId, arrKey, newData) => {
     ).select(`${arrKey} name`)// get & update 
     return data
 }
-// createNested("64b7c81cab163bcddfc1860d", "files", {
-//     "fileType": "image",
-//     "size": 139403,
-//     "createdDate": "gdchgdf",
-//     "fileName": "gggDDDDDf55555888999hff55gg.PNG",
-//     "filePath": "./public/root/64b85dca1e5b771f92fcf237/20-07-23__23-06-55.574__gggg.PNG"
-// }).then(console.log)
+
 async function updateNested(actionId, arrName, objectId, dataToUpdateKey, dataToUpdateVal) {
     let data = await actionsModel.findOneAndUpdate(
         { _id: actionId, [`${arrName}._id`]: objectId },
@@ -63,7 +57,7 @@ const deleteNested = async (actionId, arrKey, keyId) => {
         .select(`${arrKey} name`)// get & update 
     return data
 }
-//deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
+
 
 //   ***dates functions***
 const readDates = async (date1, date2, arrKey, keyDate) => {
@@ -94,8 +88,14 @@ const readDates = async (date1, date2, arrKey, keyDate) => {
 
 
 
-
-
+// createNested("64b7c81cab163bcddfc1860d", "files", {
+//     "fileType": "image",
+//     "size": 139403,
+//     "createdDate": "gdchgdf",
+//     "fileName": "gggDDDDDf55555888999hff55gg.PNG",
+//     "filePath": "./public/root/64b85dca1e5b771f92fcf237/20-07-23__23-06-55.574__gggg.PNG"
+// }).then(console.log)
+//deleteNested("64b85dca1e5b771f92fcf237","tasks","64b85dca1e5b771f92fcf23a").then(console.log)
 // createNested("64b7c81cab163bcddfc1860d", "schedules", 
 // {
 //     date: "2023-06-22T00:00:00.000Z",

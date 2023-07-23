@@ -65,17 +65,17 @@ router.put('/:actionId/:arrKey/:kId', async (req, res) => {
     }
 })
 // *** TODO : finish
-router.delete('/:actionId/:arrKey/:kId', async (req, res) => {
-    const { actionId, arrKey, kId } = req.params
+router.delete('/:actionId/:arrKey/:key', async (req, res) => {// chaingh activiti
+    const { actionId, arrKey, key } = req.params
     try {
-        const result = await updateNestedFun(actionId, arrKey, kId, req.body)
+        const result = await updateNestedFun(actionId, arrKey, key)
         res.send(result)
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message || error)
     }
 })
-router.delete('/:actionId/:arrKey/:kId', async (req, res) => {
+router.delete('/:actionId/:arrKey/:kId', async (req, res) => {// delete from data
     const { actionId, arrKey, kId } = req.params
     try {
         const result = await deleteNestedFun(actionId, arrKey, kId,)
