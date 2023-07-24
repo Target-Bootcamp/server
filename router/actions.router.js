@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const { createFun, readFun, deleteFun, updateFun, updateNestedFun, getEndWeekDatesFun, getNestedFun, deleteNestedFun, creatrNestedFun, } = require('../BL/services/actions.services')
+const { createFun, readFun, deleteFun, updateNestedFun, updateFun, readNestedBetwinDatesFun, getNestedFun, creatrNestedFun, deleteNestedFun, readActionsByEndDateFun, handleUpdate, handleCreate } = require('../BL/services/actions.services')
 const { getMonthRange } = require('../functions/dates')
 // fs
 const { checkIfEmpty, renameFile, crateFolder, crateFile, editFile, readFile, readFolder, deleteFF, claerFolder } = require("../functions/fs.functions")
 const { uploadFile } = require("../functions/upload.functions")
+const { readActionsActive } = require('../DL/controllers/actions.controler')
 const { fuulDateOver, getDate, getOuer, getOuerMS } = require('../functions/getTime.functions')
-
 const root = "./public/root"
 
 
@@ -14,7 +14,7 @@ const root = "./public/root"
 router.get('/:actionId/:arrKey', async (req, res) => {
     const { actionId, arrKey } = req.params
     try {
-        const result = await getNestedFun(actionId, arrKey,)
+        const result = await getNestedFun(actionId, arrKey, kId)
         console.log(result);
         res.send(result)
     } catch (error) {
@@ -66,18 +66,17 @@ router.put('/:actionId/:arrKey/:kId', async (req, res) => {
         res.status(400).send(error.message || error)
     }
 })
-// *** TODO : finish
 router.delete('/:actionId/:arrKey/:key', async (req, res) => {// chaingh activiti
     const { actionId, arrKey, key } = req.params
     try {
-        const result = await updateNestedFun(actionId, arrKey, key)
+        const result = await updateNestedFun(actionId, arrKey, key, req.body)
         res.send(result)
     } catch (error) {
         console.log(error);
         res.status(400).send(error.message || error)
     }
 })
-router.delete('/:actionId/:arrKey/:kId', async (req, res) => {// delete from data
+router.delete('/remove/:actionId/:arrKey/:kId', async (req, res) => {// delete from data
     const { actionId, arrKey, kId } = req.params
     try {
         const result = await deleteNestedFun(actionId, arrKey, kId,)
@@ -132,34 +131,27 @@ router.delete("/:id", async (req, res) => {
         res.status(400).send(error.message)
     }
 })
-//  **** get items by dates(tasks) of this week
-router.get('/:arrKey/:typeDateObjKey', async (req, res) => {
-    const { arrKey, typeDateObjKey } = req.params
+
+//  **** get nested items by dates
+router.get('/:arrName/:nameDateObjKey', async (req, res) => {
+    const { arrName, nameDateObjKey } = req.params
+    const toDay = req.body.toDay == true ? true : false
     try {
-        let data = await getEndWeekDatesFun(arrKey, typeDateObjKey)
+        let data = await readNestedBetwinDatesFun(arrName, nameDateObjKey, toDay)
         res.send(data)
     } catch (error) {
-        res.status(400).send(error.message)
-    }
-})
-//   *** get all actions activs ***
-router.get('/actions/activs', async (req, res) => {
-    try {
-        let data = await getEndWeekDatesFun()
-        res.send(data)
-    } catch (error) {
+        console.log(error);
         res.status(400).send(error.message)
     }
 })
 
-//  **** TODO : need to finish
-router.get('/actionId/:selctor/:month', async (req, res) => {
-    const { start, end } = getMonthRange(year, month)
-    const { selctor, key } = req.params
+//   *** get all actions activs ***
+router.get('/actions/activs', async (req, res) => {
     try {
-        // let data = await ?(selctor, start,end)
+        let data = await readActionsByEndDateFun()
         res.send(data)
     } catch (error) {
+        console.log(error);
         res.status(400).send(error.message)
     }
 })
@@ -187,12 +179,6 @@ router.post('/:folder', uploadFile("file"), async (req, res) => {
         res.status(400).send(error)
     }
 })
-
-
-
-
-
-
 
 
 
