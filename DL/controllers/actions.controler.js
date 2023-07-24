@@ -96,14 +96,25 @@ const readNestedBetwinDates = async (date1, date2, arrKey, keyDate, toDay) => {
 
 //     ***checks***
 
+readNestedBetwinDates(
+    dates.startMonth,
+    dates.endMonth,
+    "files",
+    "createdDate",
+    // toDay = dates.Day
+    //toDay = new Date().getDate()
+).then(console.log)
+
 // readNestedBetwinDates(
-// date1 = dates.startMonth
-// date2 = dates.endMonth
-// arrKey = "schedules"
-// keyDate = "date"
-// toDay = dates.Day//
-// toDay = new Date().getDate()
-//).then(console.log)
+//     dates.startMonth,
+//     dates.endMonth,
+//     "schedules",
+//     "date",
+//     // toDay = dates.Day
+//     // toDay = new Date().getDate()
+// ).then(console.log)
+
+
 
 //updateNested("64b7a5230366c31bd049cbf0", "schedules", "64b6bd3491215e213dfe2bb3", "comments", "acol letova10").then(console.log)
 

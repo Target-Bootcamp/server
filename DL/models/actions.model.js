@@ -55,7 +55,7 @@ const actionsSchema = new mongoose.Schema(
                     type: Number
                 },
                 createdDate: {
-                    type: String,
+                    type: Date,
                     default: Date.now
                 }
             }
@@ -63,7 +63,8 @@ const actionsSchema = new mongoose.Schema(
         tasks: [
             {
                 deadline: {
-                    type: Date
+                    type: Date,
+                    default: Date.now
                 },
                 details: {
                     type: String,
@@ -82,6 +83,7 @@ const actionsSchema = new mongoose.Schema(
             {
                 date: {
                     type: Date,
+                    default: Date.now
                 },
                 lecturer: {
                     type: mongoose.SchemaTypes.ObjectId,

@@ -8,10 +8,12 @@ const getNestedFun = async (actionId, arrKey, kId) => {//get a array or current 
     return action
 }
 const readNestedBetwinDatesFun = async (filterBy, arrName, keyDate, toDay) => {//get nested by dates
+    console.log("ser 1", toDay);
     let data
     let date1
     let date2
     toDay = toDay && dates.iLZoneDate
+    console.log("ser 2", toDay);
     switch (filterBy) {
         case "week":
             date1 = dates.iLZoneDate
@@ -30,6 +32,7 @@ const readNestedBetwinDatesFun = async (filterBy, arrName, keyDate, toDay) => {/
 
     return data
 }
+//readNestedBetwinDatesFun("month", "files", "createdDate", true).then(console.log)
 const readActionsByEndDateFun = async () => {//get all active action
     let action = await readActionsActive(dates.iLZoneDate)
     if (!action) throw "no found"

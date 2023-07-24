@@ -133,11 +133,12 @@ router.delete("/:id", async (req, res) => {
 })
 
 //  **** get nested items by dates
-router.get('/:arrName/:nameDateObjKey', async (req, res) => {
-    const { arrName, nameDateObjKey } = req.params
-    const toDay = req.body.toDay == true ? true : false
+router.get('/:filterBy/:arrName/:nameDateObjKey/:day', async (req, res) => {
+    const { arrName, nameDateObjKey, filterBy, day } = req.params
+    const toDay = day == "day" ? true : false
+    console.log("roter", day, toDay);
     try {
-        let data = await readNestedBetwinDatesFun(arrName, nameDateObjKey, toDay)
+        let data = await readNestedBetwinDatesFun(filterBy, arrName, nameDateObjKey, toDay)
         res.send(data)
     } catch (error) {
         console.log(error);
