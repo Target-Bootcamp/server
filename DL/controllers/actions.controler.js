@@ -114,8 +114,6 @@ const readNestedBetwinDates = async (date1, date2, arrKey, keyDate, toDay) => {
 //     // toDay = new Date().getDate()
 // ).then(console.log)
 
-
-
 //updateNested("64b7a5230366c31bd049cbf0", "schedules", "64b6bd3491215e213dfe2bb3", "comments", "acol letova10").then(console.log)
 
 //readActionsActive("2023-07-23T11:09:09.803Z").then(console.log)

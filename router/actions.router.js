@@ -11,36 +11,35 @@ const root = "./public/root"
 
 
 //  **** Key/Array of Action
-router.get('/:actionId/:arrKey', async (req, res) => {
-    const { actionId, arrKey } = req.params
+router.get('/:actionId/:arName', async (req, res) => {
+    const { actionId, arrName } = req.params
     try {
-        const result = await getNestedFun(actionId, arrKey, kId)
-        console.log(result);
+        const result = await getNestedFun(actionId, arrName)
         res.send(result)
     } catch (error) {
         console.log(error);
         res.status(400).send(error)
     }
 })
-router.post('/:actionId/:arrKey', async (req, res) => {
-    const { actionId, arrKey, } = req.params
-    try {
-        const result = await getNestedFun(actionId, arrKey, req.body)
-        res.send(result)
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error)
-    }
-})
-router.put('/:actionId/:arrKey', async (req, res) => {
-    const { actionId, arrKey } = req.params
-    try {
-        const resoult = await creatrNestedFun(actionId, arrKey, req.body)
-        res.send(resoult)
-    } catch (error) {
-        console.log(error);
-        res.send(error)
+// router.put('/:actionId/:arrName', async (req, res) => {
+//     const { actionId, arrName } = req.params
+//     try {
+//         const resoult = await creatrNestedFun(actionId, arrName, req.body)
+//         res.send(resoult)
+//     } catch (error) {
+//         console.log(error);
+//         res.send(error)
 
+//     }
+// })
+router.post('/:actionId/:arrName', async (req, res) => {
+    const { actionId, arrName, } = req.params
+    try {
+        const result = await creatrNestedFun(actionId, arrName, req.body)
+        res.send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error)
     }
 })
 
@@ -57,7 +56,6 @@ router.get('/:actionId/:arrKey/:kId', async (req, res) => {
 })
 router.put('/:actionId/:arrKey/:kId', async (req, res) => {
     const { actionId, arrKey, kId } = req.params
-    console.log(actionId, arrKey, kId, req.body)
     try {
         const result = await updateNestedFun(actionId, arrKey, kId, req.body)
         res.send(result)
@@ -178,7 +176,5 @@ router.post('/:folder', uploadFile("file"), async (req, res) => {
         res.status(400).send(error)
     }
 })
-
-
 
 module.exports = router

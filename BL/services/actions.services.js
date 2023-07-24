@@ -33,7 +33,6 @@ const readNestedBetwinDatesFun = async (filterBy, arrName, keyDate, day) => {//g
 
     return data
 }
-// readNestedBetwinDatesFun("month", "files", "createdDate", "day").then(console.log)
 const readActionsByEndDateFun = async () => {//get all active action
     let action = await readActionsActive(dates.iLZoneDate)
     if (!action) throw "no found"
@@ -99,8 +98,6 @@ async function handleCreate(actionId, arrName, objectId, newData) {
             return {}
     }
 }
-
-
 
 
 const readFun = async (filterBy) => {//get all actions --OR-- one by id
