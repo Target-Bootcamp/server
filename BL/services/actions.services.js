@@ -8,12 +8,10 @@ const getNestedFun = async (actionId, arrKey, kId) => {//get a array or current 
     return action
 }
 const readNestedBetwinDatesFun = async (filterBy, arrName, keyDate, day) => {//get nested by dates
-    console.log("ser 1", day);
     let data
     let date1
     let date2
     let toDay = day == "day" ? dates.Day : false
-    console.log("ser 2", toDay);
     switch (filterBy) {
         case "week":
             date1 = dates.iLZoneDate
