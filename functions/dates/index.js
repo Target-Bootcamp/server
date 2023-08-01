@@ -12,10 +12,6 @@ function getAllDates() {
     // תאריך סוף 7 ימים מהיום
     const endWeek = new Date(iLZoneDate.getTime() + 7 * 24 * 60 * 60 * 1000)
 
-    // console.log("1", Year, Month, Day,)
-    // console.log("2", startMonth, endMonth, endWeek,)
-    // console.log("3", "ilzone ", iLZoneDate, "globalzone", nowDate)
-
     return { startMonth, endMonth, endWeek, iLZoneDate, Year, Month, Day };
 }
 // דוגמה לשימוש בפונקציה
